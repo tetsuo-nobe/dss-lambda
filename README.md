@@ -58,7 +58,7 @@
 
 1. **Version description - オプション** に `green` と入力して **Publish** を選択します。
 
-1. ページ上部にあるブレッドクラムで **demo-function-<自分の番号>** を選択します。
+1. ページ上部にあるブレッドクラムで **demo-function-dss-lambda-<自分の番号>** を選択します。
 
 1. **エイリアス** タブを選択します。
 
