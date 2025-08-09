@@ -28,7 +28,7 @@
 
 1. AWS SAM のビルドを行います。
     ```
-    sam build  --use-container
+    sam build 
     ```
 
 1. AWS SAM のデプロイを行います。
