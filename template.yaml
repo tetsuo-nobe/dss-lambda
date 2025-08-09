@@ -15,7 +15,7 @@ Resources:
       CodeUri: demo_function/
       FunctionName: !Sub "demo-function-${AWS::StackName}"
       Handler: app.lambda_handler
-      Runtime: python3.13
+      Runtime: python3.9
       Architectures:
         - x86_64
 
