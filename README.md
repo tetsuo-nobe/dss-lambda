@@ -14,6 +14,7 @@
 
 1. マネージメントコンソール上部で **CloudShell** のアイコンを選択します。
     - マネージメントコンソールの下部に CloudShell が表示されます。
+    - ![cloudshell](images/cloudshell.png)
 
 1. CloudShell で下記のコマンドを実行し、AWS SAM プロジェクトを取得します。
     ```
