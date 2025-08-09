@@ -13,8 +13,8 @@
 ## 1. AWS SAM を使用してワークで使用する Lambda 関数や API Gateway の REST API を作成
 
 1. マネージメントコンソール上部で **CloudShell** のアイコンを選択します。
-    - マネージメントコンソールの下部に CloudShell が表示されます。
     - ![cloudshell](images/cloudshell.png)
+    - マネージメントコンソールの下部に CloudShell が表示されます。
 
 1. CloudShell で下記のコマンドを実行し、AWS SAM プロジェクトを取得します。
     ```
