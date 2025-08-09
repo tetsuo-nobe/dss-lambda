@@ -1,0 +1,72 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  dss-lambda
+
+Globals:
+  Function:
+    Timeout: 10
+    MemorySize: 128
+
+Resources:
+  DemoFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: demo_function/
+      FunctionName: !Sub "demo-function-${AWS::StackName}"
+      Handler: app.lambda_handler
+      Runtime: python3.13
+      Architectures:
+        - x86_64
+
+  # Lambda Version 
+  DemoFunctionVersion:
+    Type: AWS::Lambda::Version
+    Properties:
+      FunctionName: !Ref DemoFunction
+
+  # Lambda Alias live pointing to Version 
+  DemoFunctionAliasLive:
+    Type: AWS::Lambda::Alias
+    Properties:
+      FunctionName: !Ref DemoFunction
+      FunctionVersion: !GetAtt DemoFunctionVersion.Version
+      Name: live
+      Description: "Live alias"
+
+  # API Gateway
+  ApiGateway:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      DefinitionBody:
+        swagger: "2.0"
+        info:
+          title: !Sub "demo-api-${AWS::StackName}"
+        paths:
+          /mod7:
+            get:
+              x-amazon-apigateway-integration:
+                uri: !Sub "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DemoFunctionAliasLive}/invocations"
+                passthroughBehavior: when_no_match
+                httpMethod: POST
+                type: aws_proxy
+              responses: {}
+
+  # Lambda Permission for API Gateway to invoke the live alias
+  LambdaApiGatewayPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref DemoFunctionAliasLive
+      Action: lambda:InvokeFunction
+      Principal: apigateway.amazonaws.com
+      SourceArn: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${ApiGateway}/*/*"
+
+Outputs:
+  DemoAPI:
+    Description: "API Gateway endpoint URL for Prod stage for your function"
+    Value: !Sub "https://${ApiGateway}.execute-api.${AWS::Region}.amazonaws.com/Prod/mod7/"
+
+  
+
+
