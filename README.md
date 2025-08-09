@@ -148,9 +148,9 @@
 1. マネージメントコンソール上部で **CloudShell** のアイコンを選択します。
     - マネージメントコンソールの下部に CloudShell が表示されます。
 
-1. AWS SAM のプロジェクトフォルダに移動します。
+1. カレントフォルダが AWS SAM のプロジェクトフォルダ (dss-lambda) でなければ下記を実行します。
     ```
-    cd dss-lambda
+    cd /home/cloudshell-user/dss-lambda
     ```
 
 1. AWS SAM のリソースを削除します。
